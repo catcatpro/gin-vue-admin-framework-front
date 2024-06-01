@@ -1,7 +1,7 @@
 <template>
     <div class="aside-container">
-        <el-menu :defaultActive="menuIndex" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose"
-            router>
+        <el-menu :defaultActive="menuIndex" class="el-menu-vertical" router @select="menuSelectHandle">
+
             <el-menu-item v-for="(item) in menuData" :key="item.index" :index="item.index">
                 <el-icon>
                     <img :src="menuIndex === item.index ? item.active_icon : item.icon" alt="">
@@ -14,9 +14,17 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, ref } from 'vue';
+import { reactive, ref, onMounted } from 'vue';
+import type { RouteRecord } from 'vue-router';
+import toolbox from '@/utils/toolbox'
+type menu = {
+    index: string
+    name: string
+    icon: string
+    active_icon: string
+}
 const menuIndex = ref('/dash-board')
-const menuData = reactive([
+const menuData = reactive<menu[]>([
     {
         index: '/dash-board',
         name: '仪表盘',
@@ -32,6 +40,14 @@ const menuData = reactive([
         active_icon: '/src/assets/img/database_management_active.png',
     },
 ])
+
+onMounted(() => {
+    menuIndex.value = toolbox.getCurrentRoutePath()
+})
+//菜单切换回调
+const menuSelectHandle = (index: string, router: RouteRecord) => {
+    menuIndex.value = index
+}
 </script>
 
 <style lang="scss"></style>
