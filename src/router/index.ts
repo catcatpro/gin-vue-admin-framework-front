@@ -16,7 +16,10 @@ const router = createRouter({
     {
       path: '/login',
       name: 'login',
-      component: LoginView
+      component: LoginView,
+      meta: {
+        title: "登录"
+      }
     },
     {
       path: "",
@@ -25,10 +28,16 @@ const router = createRouter({
         {
           path: "/dash-board",
           component: () => import('@/views/DashBoardView.vue'),
+          meta: {
+            title: "仪表盘"
+          }
         },
         {
           path: "/database_management",
           component: () => import('@/views/DatabaseManagementView.vue'),
+          meta: {
+            title: "数据库管理"
+          }
         }
       ]
     },
