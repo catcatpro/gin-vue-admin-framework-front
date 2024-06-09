@@ -17,6 +17,7 @@
 import { reactive, ref, onMounted } from 'vue';
 import type { RouteRecord } from 'vue-router';
 import toolbox from '@/utils/toolbox'
+
 type menu = {
     index: string
     name: string
@@ -33,7 +34,7 @@ const menuData = reactive<menu[]>([
         active_icon: '/src/assets/img/dashboard_active.png',
     },
     {
-        index: '/database_management',
+        index: '/database',
         name: '数据库管理',
         // path: '/dash-board',
         icon: '/src/assets/img/database_management.png',
