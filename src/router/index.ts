@@ -24,9 +24,10 @@ const router = createRouter({
     {
       path: "",
       component: layout,
+      redirect: '/dashboard',
       children: [
         {
-          path: "/dash-board",
+          path: "/dashboard",
           component: () => import('@/views/DashBoardView.vue'),
           meta: {
             title: "仪表盘"
