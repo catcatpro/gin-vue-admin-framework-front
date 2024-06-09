@@ -1,4 +1,4 @@
-import { useRoute, useRouter } from 'vue-router'
+import router from '@/router'
 import type { Router } from 'vue-router'
 export default class toolbox {
 
@@ -6,7 +6,7 @@ export default class toolbox {
      * 获取当前路由路径
      */
     static getCurrentRoutePath(): string {
-        const router: Router = useRouter()
+        // const router: Router = router()
         return router?.currentRoute?.value?.path as unknown as string
     }
 
@@ -14,8 +14,7 @@ export default class toolbox {
      * 获取当前路由标题
      */
     static getCurrentRouteMetaTitle(): string {
-        const router: Router = useRouter()
-        console.log(router.currentRoute.value)
-        return router?.currentRoute?.value?.meta as unknown as string
+
+        return router?.currentRoute?.value?.meta?.title as unknown as string
     }
 }
