@@ -34,7 +34,7 @@ const router = createRouter({
           }
         },
         {
-          path: "/database_management",
+          path: "/database",
           component: () => import('@/views/DatabaseManagementView.vue'),
           meta: {
             title: "数据库管理"
