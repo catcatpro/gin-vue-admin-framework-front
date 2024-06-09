@@ -26,7 +26,7 @@ type menu = {
 const menuIndex = ref('/dash-board')
 const menuData = reactive<menu[]>([
     {
-        index: '/dash-board',
+        index: '/dashboard',
         name: '仪表盘',
         // path: '/dash-board',
         icon: '/src/assets/img/dashboard.png',
