@@ -17,10 +17,10 @@ const onSubmit = () => {
     <main class="login-container flex justify-center items-center">
         <div class="login-form-container flex">
             <section class="left-area bg-white">
-                <h3 class="title">通用后台管理框架</h3>
+                <h3 class="title font-medium">通用后台管理框架</h3>
                 <section class="form-container">
                     <h3 class="form-title">账号登录</h3>
-                    <el-form :model="form" label-width="auto" style="margin-top: 26px;max-width: 460px; ">
+                    <el-form :model="form" label-width="auto" style="margin-top: 26px;max-width: 460px; " size="large">
                         <el-space :fill="true" wrap>
                             <el-form-item label="账号">
                                 <el-input v-model="form.username" placeholder="请输入账号" />
@@ -30,14 +30,14 @@ const onSubmit = () => {
                             </el-form-item>
                             <el-form-item label="验证码">
                                 <div class="flex">
-                                    <el-input style="width: 268px;" v-model="form.code" placeholder="请输入验证码"></el-input>
-                                    <img style="width: 122px;height: 32px;margin-left: 16px;"
-                                        src="@/assets/img/code.png" alt="">
+                                    <el-input style="width: 268px;" v-model="form.code" placeholder="请输入验证码"
+                                        size="large"></el-input>
+                                    <img style="width: 122px;margin-left: 16px;" src="@/assets/img/code.png" alt="">
                                 </div>
 
                             </el-form-item>
                             <el-form-item label=" ">
-                                <el-checkbox v-model="form.auto_login" label="自动登录" size="large" />
+                                <el-checkbox v-model="form.auto_login" label="自动登录" />
                             </el-form-item>
                         </el-space>
 
@@ -78,7 +78,7 @@ height: 40px;" type="primary" size="large" @click="onSubmit">登录</el-button>
             .title {
                 color: rgb(48, 49, 51);
                 font-size: 24px;
-                font-weight: 400;
+                font-weight: 600;
                 line-height: 34px;
                 letter-spacing: 0px;
                 text-align: left;
