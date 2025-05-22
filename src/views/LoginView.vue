@@ -1,5 +1,11 @@
 <script setup lang="ts">
-import { ref, reactive } from 'vue'
+import { ref, reactive, onMounted } from 'vue'
+import { CommonApi } from '@/api/Coommon'
+onMounted(()=>{
+  setTimeout(() => {
+      getCaptcha()
+  }, 500);
+})
 const form = reactive({
     username: '',
     password: '',
@@ -8,8 +14,18 @@ const form = reactive({
 
 })
 
+const captcha = ref<Captcha>({
+    captcha:'',
+    id:''
+})
+ 
+const getCaptcha = async  () => {
+    const res  = await CommonApi.getCaptcha()
+   const jsonData = await res.json()
+   captcha.value = jsonData.data
+}
 const onSubmit = () => {
-    console.log('submit!')
+  
 }
 </script>
 
@@ -32,7 +48,7 @@ const onSubmit = () => {
                                 <div class="flex">
                                     <el-input style="width: 268px;" v-model="form.code" placeholder="请输入验证码"
                                         size="large"></el-input>
-                                    <img style="width: 122px;margin-left: 16px;" src="@/assets/img/code.png" alt="">
+                                    <img @click="getCaptcha" style="width: 122px; height: 38px; margin-left: 16px;" :src="captcha.captcha" alt="">
                                 </div>
 
                             </el-form-item>
