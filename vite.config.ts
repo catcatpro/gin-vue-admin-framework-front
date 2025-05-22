@@ -7,6 +7,7 @@ import VueDevTools from 'vite-plugin-vue-devtools'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+import { resolve } from 'node:path'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
@@ -22,12 +23,23 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url))
+      '@': resolve('src')
     }
   },
-  test: {
-    deps: {
-      inline: ['element-plus']
+      server: {
+      proxy: {
+        "/api": {
+          target:  "http://192.168.1.9:8080",
+          secure: false,
+          changeOrigin: true,
+          rewrite: path => path.replace(/^\/api/, '')
+        }
+      }
     }
-  }
+
+  // test: {
+  //   deps: {
+  //     inline: ['element-plus']
+  //   }
+  // }
 })
