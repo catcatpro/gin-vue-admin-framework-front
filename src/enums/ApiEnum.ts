@@ -1,4 +1,4 @@
-declare enum HttpStatus{
-    Error = 'error',
+declare enum HttpStatusMsg{
+    Error ='error',
     Success = 'ok'
 }
