@@ -11,13 +11,17 @@
                 <img src="@/assets/img/avatar.png" alt="">
             </div>
             <div class="user-name">
-                <span>admin</span>
+                <span>{{ userStore.user_info?.username }}</span>
             </div>
         </div>
     </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { useUserStore } from '@/stores/user';
+
+ const userStore = useUserStore()
+ </script>
 
 <style lang="scss">
 .header-container {

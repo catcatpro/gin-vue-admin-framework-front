@@ -21,6 +21,7 @@ export default defineConfig({
       resolvers: [ElementPlusResolver()]
     })
   ],
+  envPrefix: "APP_",
   resolve: {
     alias: {
       '@': resolve('src')

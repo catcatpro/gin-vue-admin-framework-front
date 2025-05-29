@@ -17,4 +17,12 @@ export default class toolbox {
 
         return router?.currentRoute?.value?.meta?.title as unknown as string
     }
+
+    static Object2UrlencodedData(originData: Object) {
+        const encodeData = new URLSearchParams()
+        for (const [key, value] of Object.entries(originData))
+            encodeData.append(key, value as string)
+        return encodeData.toString()
+    }
+
 }

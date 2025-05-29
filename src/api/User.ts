@@ -23,6 +23,20 @@ export class UserApi{
     return ky_http.post<LoginResponse>("public/admin/user/login", {
       json: sendData,
     })
+  }
 
+  /**
+   * 通过token获取用户信息
+   * @param token token
+   * @return  {ResponsePromise<UserInfoResponse>}
+   */
+  static getUserInfoByToken(token: string) :ResponsePromise<UserInfoResponse>{
+    const sendData = {
+      type: 'token',
+      data: token,
+    }
+    return ky_http.post<UserInfoResponse>("public/admin/user/get_user_info", {
+      json: sendData
+    })
   }
 }

@@ -34,10 +34,11 @@ const config: Options = {
     ],
     beforeError: [
       async error => {
-        console.error('HTTPError', error);
+      const response: BasicResponse = await error.response.json() as BasicResponse
+        console.error('HTTPError', response);
 
         // 返回要抛出的 HTTPError 对象
-        ElMessage.error("系统错误：" + error.message)
+        ElMessage.error("系统错误：" + response.msg)
         return error;
       },
     ]
