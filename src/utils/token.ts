@@ -13,4 +13,7 @@ export class token {
     static has(): boolean {
         return storage.get(APP_TOKEN_KEY) ? true : false
     }
+    static remove(){
+        storage.del(APP_TOKEN_KEY)
+    }
 }

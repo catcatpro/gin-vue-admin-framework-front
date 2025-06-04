@@ -18,10 +18,17 @@
 </template>
 
 <script setup lang="ts">
+import {onMounted} from 'vue'
 import { useUserStore } from '@/stores/user';
 
  const userStore = useUserStore()
- </script>
+
+
+onMounted(async () =>{
+  await userStore.getUserInfoByToken()
+
+})
+</script>
 
 <style lang="scss">
 .header-container {

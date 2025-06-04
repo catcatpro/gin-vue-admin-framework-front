@@ -35,7 +35,7 @@ export class UserApi{
       type: 'token',
       data: token,
     }
-    return ky_http.post<UserInfoResponse>("public/admin/user/get_user_info", {
+    return ky_http.post<UserInfoResponse>("admin/user/get_user_info", {
       json: sendData
     })
   }

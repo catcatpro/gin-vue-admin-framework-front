@@ -7,7 +7,7 @@ import { storage } from "@/utils/storage";
 
 export const useUserStore = defineStore('user', {
     state: () => ({
-        auth_status: false,
+        auth_status: token.has(),
         auto_login: storage.get('auto_login') ? true : false,
         user_info: storage.get("user_info") ? JSON.parse(storage.get("user_info") ?? "{}") : null
     }),
@@ -22,21 +22,25 @@ export const useUserStore = defineStore('user', {
             if (jsonData.status === HttpStatus.Error) return
             if (auto_login)
                 storage.set('auto_login', '1')
-            // 设置token
-            token.set(jsonData.data.token)
-            this.auth_status = true
+          
             await router.push('/')
         },
         async getUserInfoByToken() {
             const _token = token.get()
             if (_token) {
                 const res = await UserApi.getUserInfoByToken(_token)
+                console.log("res", res)
                 const jsonData = await res.json() as UserInfoResponse
-                if (jsonData.status == HttpStatus.Success) {
-                    this.auth_status = true
-                    this.user_info = jsonData.data
+                if (res.status == 200) {
+                    if (jsonData.status == HttpStatus.Success) {
+                        // this.auth_status = true
+                        this.user_info = jsonData.data
+                    }
+                }else if(res.status == 400)  {
+                    // this.auth_status = false
+                    // this.user_info = null
+                    // token.
                 }
-
             }
         }
     }
