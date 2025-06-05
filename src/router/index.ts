@@ -69,8 +69,7 @@ const router = createRouter({
 
 router.beforeEach(async (to, from, next) => {
   const path = to.path;
-  //获取页面类型
-  //自动登录后台
+
   const userStore = useUserStore()
   console.log('to.name', to.name)
 
@@ -82,13 +81,13 @@ router.beforeEach(async (to, from, next) => {
       //   if (userStore.auth_status)
       //     next("/")
       // }
-      if (userStore.auth_status)
-        next("/")
 
+       
+      if (userStore.auth_status)  next("Dashboard")
+ 
     } else if (to.name !== 'login') {
-      // await userStore.getUserInfoByToken()
-
-      if (!userStore.auth_status) {
+    console.log('userStore.auth_status',userStore.auth_status)
+     if (!userStore.auth_status) {
         next("login")
       }
     }

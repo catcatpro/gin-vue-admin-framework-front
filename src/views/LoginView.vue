@@ -2,7 +2,7 @@
 import { ref, reactive, onMounted } from 'vue'
 import { CommonApi } from '@/api/Coommon'
 import { type FormRules, type FormInstance, ElMessage } from 'element-plus'
-import { UserApi } from '@/api/User.ts'
+import { UserApi } from '@/api/UserApi'
 import { token } from '@/utils/token.ts'
 import router from '@/router'
 import { useUserStore } from "@/stores/user"

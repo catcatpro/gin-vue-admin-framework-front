@@ -26,14 +26,26 @@ export class UserApi{
   }
 
   /**
+   * //刷新token
+   * @param refresh_token 
+   * @return {ResponsePromise<RefreshTokenResponse>}
+   */
+  static RefreshToken(refresh_token:string):ResponsePromise<RefreshTokenResponse>{
+    const sendData = {
+      refresh_token,
+    }
+    return ky_http.post<RefreshTokenResponse>('public/admin/user/refresh_token',{
+      json: sendData
+    })
+  }
+  /**
    * 通过token获取用户信息
    * @param token token
    * @return  {ResponsePromise<UserInfoResponse>}
    */
-  static getUserInfoByToken(token: string) :ResponsePromise<UserInfoResponse>{
+  static getUserInfoByToken() :ResponsePromise<UserInfoResponse>{
     const sendData = {
       type: 'token',
-      data: token,
     }
     return ky_http.post<UserInfoResponse>("admin/user/get_user_info", {
       json: sendData

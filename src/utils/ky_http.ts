@@ -5,12 +5,19 @@ import _ from 'lodash'
 import { ElMessage } from "element-plus"
 import { useUserStore } from "@/stores/user"
 import router from "@/router"
+import { UserApi } from "@/api/UserApi"
+//@ts-ignore
 const { APP_API_URL } = import.meta.env
-
+//@ts-ignore
 console.log('eee', import.meta.env.DEV ? '/api' : APP_API_URL)
 const config: Options = {
+  //@ts-ignore
   prefixUrl: import.meta.env.DEV ? '/api' : APP_API_URL, //正式环境用APP_API_URL, //正式环境用APP_API_URL
-  retry: 0,
+  retry: {
+    limit: 1,
+    methods: ['post'],
+    statusCodes: [401]
+  },
   timeout: 15000,
   headers: {},
   hooks: {
@@ -31,34 +38,46 @@ const config: Options = {
         console.log("  afterResponse:")
         //TOO
         // 更多操作
-        if (response.headers.has('authorization')) {
-          // 设置token
-          const AuthorizationStr = response.headers.get('authorization')
-          if (AuthorizationStr) {
-            const userStore = useUserStore()
-            const searchIndex = "Bearer ".length
-            const tokenStr = AuthorizationStr.substring(searchIndex)
-            console.log(tokenStr, AuthorizationStr, searchIndex)
-            token.set(tokenStr)
-            userStore.auth_status = true
-          }
+        // if (response.headers.has('authorization')) {
+        //   // 设置token
+        //   const AuthorizationStr = response.headers.get('authorization')
+        //   if (AuthorizationStr) {
+        //     const userStore = useUserStore()
+        //     const searchIndex = "Bearer ".length
+        //     const tokenStr = AuthorizationStr.substring(searchIndex)
+        //     console.log(tokenStr, AuthorizationStr, searchIndex)
+        //     token.set(tokenStr)
+        //     userStore.auth_status = true
+        //   }
 
-        }
+        // }
+
         return response
 
       }
     ],
     beforeError: [
-      async error => {
+      //@ts-ignore
+      async (error) => {
         const response: BasicResponse = await error.response.json() as BasicResponse
-        console.error('HTTPError', response);
-
+        const originalRequest = error.request;
         // 返回要抛出的 HTTPError 对象
         if (error.response.status == 401) {
-          useUserStore().auth_status = false
-          token.remove()
-          //返回登录页面
-          router.push('/login')
+          const userStore = useUserStore()
+          try {
+            const res = await UserApi.RefreshToken(token.getRefathToken() as string)
+            const jsonData = await res.json() as RefreshTokenResponse
+            console.log('error.response.status', error.response.status)
+            console.log('jsonData.data', jsonData.data['token'])
+            token.set(jsonData.data['token'] as string)
+            userStore.auth_status = true
+            originalRequest.headers.set('x-header-token', `${token.get()}`);
+          } catch (err) {
+            error.options.retry.limit = 0
+            originalRequest.clone()
+            ElMessage.error("登录状态已过期！")
+            userStore.userLogout()
+          }
         } else {
           ElMessage.error("系统错误：" + response.msg)
         }

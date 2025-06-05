@@ -7,3 +7,7 @@ declare interface LoginResponse extends BasicResponse{
 declare interface UserInfoResponse extends BasicResponse{
     data: User
 }
+
+declare interface RefreshTokenResponse extends BasicResponse{
+    data: Record<string, string | null>
+}
