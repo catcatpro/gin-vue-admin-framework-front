@@ -62,10 +62,15 @@ const onSubmit = async () => {
     await formRef.value.validate(async (valid: boolean, invalidFields) => {
         if (!valid) {
             ElMessage.error("输入有误！")
-        }else{
-                 const userStore = useUserStore()
-        await userStore.userLogin(form.username, form.password, { captcha: form.code, id: captcha.value.id }, form.auto_login as string)
-   
+        } else {
+            const userStore = useUserStore()
+            try {
+                await userStore.userLogin(form.username, form.password, { captcha: form.code, id: captcha.value.id }, form.auto_login as string)
+
+            } catch (error) {
+                isLoading.value = false
+            }
+
         }
 
         //登录
@@ -75,17 +80,17 @@ const onSubmit = async () => {
         // // 设置token
         // token.set(jsonData.data.token)
         // await router.push('/')
-   
+
         isLoading.value = false;
-   
-   
+
+
     })
 }
 </script>
 
 <template>
     <main class="login-container flex justify-center items-center">
-        <div class="login-form-container flex"  v-loading="isLoading">
+        <div class="login-form-container flex" v-loading="isLoading">
             <section class="left-area bg-white">
                 <h3 class="title font-medium">通用后台管理框架</h3>
                 <section class="form-container">

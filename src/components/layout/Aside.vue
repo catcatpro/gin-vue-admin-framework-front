@@ -8,7 +8,7 @@
                         <el-icon>
                             <img :src="menuIndex === item.index ? item.active_icon : item.icon" alt="">
                         </el-icon>
-                        <span>{{ item.name }}</span>
+                                     <span class="text-base">{{ item.name }}</span>
                     </template>
                     <template v-for="(sub_item) in item.sub_menu" :key="sub_item.index">
                         <el-menu-item :index="sub_item.index">{{ sub_item.name }}</el-menu-item>
@@ -66,8 +66,8 @@ const menuData = reactive<menu[]>([
     {
         index: 'user_management',
         name: '用户管理',
-        icon: '/src/assets/img/database_management.png',
-        active_icon: '/src/assets/img/database_management_active.png',
+        icon: '/src/assets/img/user_management.png',
+        active_icon: '/src/assets/img/user_management_active.png',
         sub_menu: [
             {
 
