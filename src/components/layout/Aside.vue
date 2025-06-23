@@ -56,13 +56,13 @@ const menuData = reactive<menu[]>([
         icon: '/src/assets/img/dashboard.png',
         active_icon: '/src/assets/img/dashboard_active.png',
     },
-    {
-        index: '/database',
-        name: '数据库管理',
-        // path: '/dash-board',
-        icon: '/src/assets/img/database_management.png',
-        active_icon: '/src/assets/img/database_management_active.png',
-    },
+    // {
+    //     index: '/database',
+    //     name: '数据库管理',
+    //     // path: '/dash-board',
+    //     icon: '/src/assets/img/database_management.png',
+    //     active_icon: '/src/assets/img/database_management_active.png',
+    // },
     {
         index: 'user_management',
         name: '用户管理',
@@ -84,7 +84,14 @@ const menuData = reactive<menu[]>([
             },
         ]
 
-    }
+    },
+  {
+    index: '/system_settings',
+    name: '系统设置',
+    // path: '/dash-board',
+    icon: '/src/assets/img/settings.png',
+    active_icon: '/src/assets/img/settings_active.png',
+  },
 ])
 
 onMounted(() => {

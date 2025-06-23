@@ -56,6 +56,14 @@ const routes = [
         meta: {
           title: "用户数据"
         }
+      },
+      {
+        path: "/system_settings",
+        name: "SystemSettings",
+        component: () => import('@/views/SystemSettingsView.vue'),
+        meta: {
+          title: "系统扇叶"
+        }
       }
     ]
   },
