@@ -18,7 +18,7 @@ const config: Options = {
     methods: ['post'],
     statusCodes: [401]
   },
-  timeout: 15000,
+  timeout: 1500,
   headers: {},
   hooks: {
     beforeRequest: [
@@ -51,7 +51,26 @@ const config: Options = {
         //   }
 
         // }
+        if (response.status == 401) {
+          const userStore = useUserStore()
+          try {
+            const res = await UserApi.RefreshToken(token.getRefathToken() as string)
+            const jsonData = await res.json() as RefreshTokenResponse
+            console.log('jsonData.data', jsonData.data['token'])
+            token.set(jsonData.data['token'] as string)
+            userStore.auth_status = true
+           //@ts-ignore
+            options.headers.set('x-header-token', `${token.get()}`);
 
+          } catch (err) {
+            options.retry.limit = 0
+           request.clone()
+            ElMessage.error("登录状态已过期！")
+            userStore.userLogout()
+          }
+        } else {
+
+        }
         return response
 
       }
@@ -62,24 +81,9 @@ const config: Options = {
         const response: BasicResponse = await error.response.json() as BasicResponse
         const originalRequest = error.request;
         // 返回要抛出的 HTTPError 对象
-        if (error.response.status == 401) {
-          const userStore = useUserStore()
-          try {
-            const res = await UserApi.RefreshToken(token.getRefathToken() as string)
-            const jsonData = await res.json() as RefreshTokenResponse
-            console.log('error.response.status', error.response.status)
-            console.log('jsonData.data', jsonData.data['token'])
-            token.set(jsonData.data['token'] as string)
-            userStore.auth_status = true
-            originalRequest.headers.set('x-header-token', `${token.get()}`);
-          } catch (err) {
-            error.options.retry.limit = 0
-            originalRequest.clone()
-            ElMessage.error("登录状态已过期！")
-            userStore.userLogout()
-          }
-        } else {
-          ElMessage.error("系统错误：" + response.msg)
+        if (error.response.status != 401 && response && response.msg) {
+          error.message = `${response.msg} (${response.status})`;
+          ElMessage.error("系统错误：" + error.message);
         }
         return error;
       },

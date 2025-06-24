@@ -22,6 +22,7 @@ instance.interceptors.request.use((config: InternalAxiosRequestConfig<any>) => {
 
     return config
 }, (error) => {
+  console.log('err', error)
     return Promise.reject(error)
 })
 
