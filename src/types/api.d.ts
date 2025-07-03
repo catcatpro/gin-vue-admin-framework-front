@@ -1,9 +1,6 @@
-declare enum HttpStatus{
-    Error ='error',
-    Success = 'ok'
-}
+
 declare interface BasicResponse{
-    status: HttpStatus
+    status: string
     msg: string
     data: Record<never, never>
 }
