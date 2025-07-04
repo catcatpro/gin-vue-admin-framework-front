@@ -72,10 +72,10 @@ import { reactive, onMounted } from 'vue'
 // do not use same name with ref
 const form = reactive<SysSettings>({
   sys_name: '',
-  sys_switch: true,
+  sys_switch: false,
 })
 
-
+//保存系统设置
 const onSubmit = () => {
   console.log('submit!', Object.keys(form), Object.values(form))
   const submitData: SysSettingsSubmitDataItem[] = []
@@ -102,8 +102,26 @@ const onSubmit = () => {
   })
 }
 
+//获取系统设置数据
+const getSysSettings = async () => {
+  const settingsRes = await SettingsApi.GetSettings()
+  if (settingsRes.ok) {
+    const responseBody = await settingsRes.json() as SysSettingsResponse
+    if (responseBody.status != HttpStatus.Success) {
+      ElMessage.error(responseBody.msg)
+      return
+    }
+
+    const responseData = responseBody.data
+    for (let i = 0; i < responseData.length; i++) {
+      const item = responseData[i]
+      //@ts-ignore
+      form[item.set_key] = item.set_key == 'sys_switch' ? (item.set_value === '1' ? true : false) : item.set_value
+    }
+
+  }
+}
 onMounted(async () => {
-  const settingsRes = SettingsApi.GetSettings()
-  console.log('body', (await settingsRes).body)
+  await getSysSettings()
 })
 </script>
