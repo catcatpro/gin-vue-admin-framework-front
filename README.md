@@ -1,4 +1,4 @@
-# 使用 Vue3+Vue-Router+Pinia的通用后台开发框架
+# 使用 Vue3+VueRouter+Pinia的通用后台开发框架
 ## 1、特点
 <p style="font-size: 16px">简单、方便、开箱即用。</p>
 <p style="font-size: 16px">正所谓斯是陋室,惟吾德馨。系统只写了一个jwt，其它功能的话，自行扩展</p>
