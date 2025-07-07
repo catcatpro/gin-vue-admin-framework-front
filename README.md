@@ -1,45 +1,12 @@
-# gin-vue-admin-framework-front
+# 使用 Vue3+Vue-Router+Pinia的通用后台开发框架
+## 1、特点
+<p style="font-size: 16px">简单、方便、开箱即用。</p>
+<p style="font-size: 16px">正所谓斯是陋室,惟吾德馨。系统只写了一个jwt，其它功能的话，自行扩展</p>
 
-This template should help get you started developing with Vue 3 in Vite.
+## 2、截图
+<img src="./screemshot/img1.png" alt="登录页面" />
 
-## Recommended IDE Setup
+![系统设置](screemshot/img2.png)
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
-
-## Type Support for `.vue` Imports in TS
-
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
-
-```sh
-npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Type-Check, Compile and Minify for Production
-
-```sh
-npm run build
-```
-
-### Run Unit Tests with [Vitest](https://vitest.dev/)
-
-```sh
-npm run test:unit
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
+## 注意
+需要和[gin-vue-admin-framework-back](https://github.com/catcatpro/gin-vue-admin-framework-back)一起使用
