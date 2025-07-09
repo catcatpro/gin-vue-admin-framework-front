@@ -13,6 +13,11 @@
             <div class="user-name">
                 <span>{{ userStore.user_info?.username }}</span>
             </div>
+          <div class="arrow mt-2 ml-2">
+            <el-icon :size="24">
+              <ArrowDown />
+            </el-icon>
+          </div>
         </div>
     </div>
 </template>
@@ -20,6 +25,7 @@
 <script setup lang="ts">
 import {onMounted} from 'vue'
 import { useUserStore } from '@/stores/user';
+import { ArrowDown } from '@element-plus/icons-vue'
 
  const userStore = useUserStore()
 
@@ -33,16 +39,15 @@ onMounted(async () =>{
 <style lang="scss">
 .header-container {
     width: 100%;
-    padding: 12px 20px;
     color: #fff;
 
     .logo-container {
         .logo {
             h3 {
                 color: rgb(255, 255, 255);
-                font-size: 18px;
+                font-size: 20px;
                 font-weight: 700;
-                line-height: 2;
+                line-height: 35px;
                 letter-spacing: 0px;
                 text-align: left;
             }
@@ -51,8 +56,8 @@ onMounted(async () =>{
 
     .user-container {
         .user-avatar {
-            width: 24px;
-            height: 24px;
+            width: 32px;
+            height: 32px;
 
             img {
                 width: 100%;

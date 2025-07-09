@@ -10,7 +10,7 @@ export const useUserStore = defineStore('user', {
     state: () => ({
         auth_status: token.has(),
         auto_login: storage.get('auto_login') ? true : false,
-        user_info:  {}
+        user_info:  {} as User
     }),
     getters: {
         getUserInfo: (state) => state.user_info,

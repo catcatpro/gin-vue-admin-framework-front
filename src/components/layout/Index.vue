@@ -1,7 +1,7 @@
 <template>
     <div class="layout-container">
         <el-container>
-            <el-header>
+            <el-header class="flex items-center">
                 <Header />
             </el-header>
 
